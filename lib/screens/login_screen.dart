@@ -17,8 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
   final _auth = FirebaseAuth.instance;
-  bool showSpinner=false;
-
+  bool showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,84 +28,82 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.all(24.0),
-          child: Wrap(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Hero(
-                    tag: 'logo',
-                    child: Container(
-                      height: 200.0,
-                      child: Image.asset('images/logo.png'),
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
                   ),
-                  SizedBox(
-                    height: 48.0,
-                  ),
-                  Hero(
-                    tag: 'flash_chat_title',
-                    child: TypewriterAnimatedTextKit(
-                      textStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 45.0,
-                          fontWeight: FontWeight.w900),
-                      text: ['Flash Chat_'],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 48.0,
-                  ),
-                  TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    style: TextStyle(color: Colors.black),
-                    onChanged: (value) {
-                      email = value;
-                      //Do something with the user input.
-                    },
-                    decoration: kTextFieldStyle.copyWith(
-                        hintText: 'Enter Your Email',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  TextField(
-                    obscureText: true,
-                    style: TextStyle(color: Colors.black),
-                    onChanged: (value) {
-                      password = value;
-                      //Do something with the user input.
-                    },
-                    decoration: kTextFieldStyle.copyWith(
-                        hintText: 'Enter Your Password',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                  ),
-                  SizedBox(
-                    height: 24.0,
-                  ),
-                  RoundedButton(
-                      buttonTitle: 'Log In',
-                      onPressed: () async{
-                        setState(() {
-                          showSpinner = true;
-                        });
-                        try {
-                          final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
-                          if(user!=null)
-                          {
-                            Navigator.pushNamed(context, ChatScreen.id);
-                          }
-                          setState(() {
-                            showSpinner = false;
-                          });
-                        } catch (e) {
-                          print(e);
-                        }
-                      })
-                ],
+                ),
               ),
+              SizedBox(
+                height: 48.0,
+              ),
+              Hero(
+                tag: 'flash_chat_title',
+                child: TypewriterAnimatedTextKit(
+                  textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.w900),
+                  text: ['Flash Chat_'],
+                ),
+              ),
+              SizedBox(
+                height: 48.0,
+              ),
+              TextField(
+                keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
+                onChanged: (value) {
+                  email = value;
+                  //Do something with the user input.
+                },
+                decoration: kTextFieldStyle.copyWith(
+                    hintText: 'Enter Your Email',
+                    hintStyle: TextStyle(color: Colors.grey)),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                obscureText: true,
+                style: TextStyle(color: Colors.black),
+                onChanged: (value) {
+                  password = value;
+                  //Do something with the user input.
+                },
+                decoration: kTextFieldStyle.copyWith(
+                    hintText: 'Enter Your Password',
+                    hintStyle: TextStyle(color: Colors.grey)),
+              ),
+              SizedBox(
+                height: 24.0,
+              ),
+              RoundedButton(
+                  buttonTitle: 'Log In',
+                  onPressed: () async {
+                    setState(() {
+                      showSpinner = true;
+                    });
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      if (user != null) {
+                        Navigator.pushNamed(context, ChatScreen.id);
+                      }
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
+                  })
             ],
           ),
         ),
