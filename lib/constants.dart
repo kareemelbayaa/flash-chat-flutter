@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: Color(0xFFF7B717),
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
-const kTextFieldStyle = InputDecoration(hintText: 'Enter A Value',
+const kTextFieldStyle = InputDecoration(
+  hintText: 'Enter A Value',
   hintStyle: TextStyle(color: Colors.grey),
-  contentPadding:
-  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
@@ -18,10 +18,10 @@ const kTextFieldStyle = InputDecoration(hintText: 'Enter A Value',
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide:
-    BorderSide(color: Colors.black, width: 2.0),
+    borderSide: BorderSide(color: Colors.black, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),);
+  ),
+);
 
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -31,6 +31,6 @@ const kMessageTextFieldDecoration = InputDecoration(
 
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: Colors.yellow, width: 2.0),
   ),
 );

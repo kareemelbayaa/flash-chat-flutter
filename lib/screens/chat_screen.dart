@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -11,6 +13,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
+  String messageText;
+  final _fireStore = FirebaseFirestore.instance;
 
   getCurrentUser() async {
     final user = await _auth.currentUser;
@@ -38,11 +42,12 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+              _auth.signOut();
+              Navigator.pop(context);
               }),
         ],
         title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.black,
       ),
       body: SafeArea(
         child: Column(
@@ -50,14 +55,17 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
+
               decoration: kMessageContainerDecoration,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      style: TextStyle(color: Colors.black87),
                       onChanged: (value) {
                         //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
@@ -65,6 +73,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       //Implement send functionality.
+                      _fireStore.collection('messages').add({
+                        'text':messageText,
+                        'sender':_auth.currentUser.email
+                      });
                     },
                     child: Text(
                       'Send',
