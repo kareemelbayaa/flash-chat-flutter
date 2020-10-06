@@ -75,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _fireStore.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                List<Text> messageWidgets = [];
+                List<MessageBubble> messageBubbles = [];
                 if (snapshot.hasError) {
                   return Text('Something went wrong');
                 }
@@ -91,12 +91,15 @@ class _ChatScreenState extends State<ChatScreen> {
                 for (var message in messages) {
                   final messageText = message.data()['text'];
                   final messageSender = message.data()['sender'];
-                  final messageWidget =
-                      Text('$messageText from $messageSender');
-                  messageWidgets.add(messageWidget);
+                  final messageBubble = MessageBubble(messageSender, messageText);
+                  messageBubbles.add(messageBubble);
                 }
-                return Column(
-                  children: messageWidgets,
+                return Expanded(
+                  child: ListView(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    children: messageBubbles,
+                  ),
                 );
               },
             ),
@@ -133,6 +136,41 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  final String sender;
+  final String text;
+
+  MessageBubble(this.sender, this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text('$sender',style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.black45
+          ),),
+          Material(
+
+            borderRadius: BorderRadius.circular(30.0),
+            color: Colors.black,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),
+              child: Text(
+                '$text',
+                style: TextStyle(fontSize: 15.0,color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
