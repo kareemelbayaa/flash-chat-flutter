@@ -11,6 +11,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,61 +23,71 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         padding: EdgeInsets.all(24.0),
         child: Wrap(
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    height: 200.0,
-                    child: Image.asset('images/logo.png'),
-                  ),
-                ),
-                SizedBox(
-                  height: 48.0,
-                ),
-                Hero(
-                  tag: 'flash_chat_title',
-                  child: TypewriterAnimatedTextKit(
-                    textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 45.0,
-                        fontWeight: FontWeight.w900),
-                    text: ['Flash Chat_'],
-                  ),
-                ),
-                SizedBox(
-                  height: 48.0,
-                ),
-                TextField(
-                  onChanged: (value) {
-                    //Do something with the user input.
-                  },
-                  decoration: kTextFieldStyle.copyWith(
-                      hintStyle: TextStyle(color: Colors.grey),
-                      hintText: 'Enter Your Email'),
-                ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                TextField(
-                  onChanged: (value) {
-                    //Do something with the user input.
-                  },
-                  decoration: kTextFieldStyle.copyWith(
-                      hintStyle: TextStyle(color: Colors.grey),
-                      hintText: 'Enter Your Password'),
-                ),
-                SizedBox(
-                  height: 24.0,
-                ),
-                RoundedButton(buttonTitle: 'Register', onPressed: () {})
-              ],
-            ),
-          ],
+          Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+        Hero(
+        tag: 'logo',
+          child: Container(
+            height: 200.0,
+            child: Image.asset('images/logo.png'),
+          ),
         ),
+        SizedBox(
+          height: 48.0,
+        ),
+        Hero(
+          tag: 'flash_chat_title',
+          child: TypewriterAnimatedTextKit(
+            textStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 45.0,
+                fontWeight: FontWeight.w900),
+            text: ['Flash Chat_'],
+          ),
+        ),
+        SizedBox(
+          height: 48.0,
+        ),
+        TextField(
+          keyboardType: TextInputType.emailAddress,
+          style: TextStyle(color: Colors.black),
+            onChanged: (value) {
+        //Do something with the user input.
+        email=value;
+      },
+        decoration: kTextFieldStyle.copyWith(
+            hintStyle: TextStyle(color: Colors.grey),
+            hintText: 'Enter Your Email'),
       ),
+      SizedBox(
+        height: 8.0,
+      ),
+      TextField(
+        obscureText: true,
+        style: TextStyle(color: Colors.black),
+        onChanged: (value) {
+          //Do something with the user input.
+          email = value;
+        },
+        decoration: kTextFieldStyle.copyWith(
+            hintStyle: TextStyle(color: Colors.grey),
+            hintText: 'Enter Your Password'),
+      ),
+      SizedBox(
+        height: 24.0,
+      ),
+      RoundedButton(buttonTitle: 'Register', onPressed: () {
+        print(email);
+      })
+      ],
+    ),]
+    ,
+    )
+    ,
+    )
+    ,
     );
   }
 }
